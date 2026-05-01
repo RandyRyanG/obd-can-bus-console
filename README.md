@@ -2,6 +2,8 @@
 
 A Python desktop application for communicating with a vehicle's OBD-II port using an Arduino-based CAN Bus Shield. Built with PyQt6 for the UI and pyserial for serial communication.
 
+![OBD-II CAN Bus Console](obd_console.png)
+
 ---
 
 ## Features
