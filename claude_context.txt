@@ -1,0 +1,59 @@
+## Project Context: OBD-II CAN Bus UI
+
+### What this project is
+A Python Qt6 desktop app for communicating with a vehicle's OBD-II port via an Arduino CAN Bus Shield on COM5 at 115200 baud. There are two Python files:
+
+- `obd_query.py` — the backend: serial communication, all PID/mode dictionaries, decoders
+- `obd_console.py` — the Qt6 UI layer that imports from obd_query.py
+- `obd_console.ui` — Qt Designer UI file loaded at runtime with uic.loadUi()
+- `OBDII_PIDs_updated/OBDII_PIDs_updated.ino` — Arduino firmware (Seeed Studio CAN Bus Shield V2)
+
+### UI widgets (object names)
+- `sel_service_mode` — QComboBox, mode dropdown (01-0A)
+- `pid_list` — QListView, populated with PIDs for selected mode (filtered to supported only after Get Vehicle Data)
+- `user_pid_text` — QLineEdit, hex PID input (also auto-filled when clicking pid_list)
+- `send_button` — sends the selected mode/PID
+- `response_text` — QTextBrowser, displays query results and DTCs
+- `connect_device_button` — opens serial connection, reads DEVICE: string from Arduino on startup
+- `connected_checkbox` — read-only visual indicator (WA_TransparentForMouseEvents)
+- `get_vehicle_data` — QPushButton, fetches VIN/cal ID/ECU name and builds supported PID lists
+- `vehicle_data_display` — QTextBrowser, shows static vehicle info
+- `clear_results_button` — clears response_text
+- `device_name` — QLabel, shows Arduino device name after connect, updates to "year manufacturer | COM5" after Get Vehicle Data
+
+### What currently works
+- Serial connect reads startup lines from Arduino to detect device name (DEVICE: prefix)
+- `device_name` label shows device name on connect, updates to vehicle info after Get Vehicle Data
+- Mode dropdown populates pid_list (Mode 01, 05, 09 have PID lists)
+- Mode 01 pid_list is filtered to only supported PIDs (queried via bitmask PIDs 00, 20, 40, 60 on Get Vehicle Data)
+- Mode 09 pid_list is filtered to only supported params (queried via PID 00 bitmask on Get Vehicle Data)
+- Clicking a PID in pid_list auto-fills user_pid_text with the hex code
+- Send button queries the device and decodes ~50 Mode 01 PIDs into human-readable values
+- Mode 09 PIDs decoded: VIN (ASCII), Cal ID (ASCII), CVN (hex), other params (ASCII)
+- DTC modes (03, 07, 0A) read and display trouble codes in response_text
+- Mode 04 (clear DTCs) shows a QMessageBox confirmation dialog before clearing
+- Get Vehicle Data button fetches VIN (decoded to year + manufacturer via WMI), Cal ID, ECU name
+
+### Key data structures and functions in obd_query.py
+- `MODE01_PIDS` — dict of Mode 01 PID hex codes to descriptions (bitmask PIDs removed)
+- `MODE09_PARAMS` — dict of Mode 09 params (PID 00 removed, handled internally)
+- `MODE05_MONITORS` — dict of O2 sensor monitor IDs
+- `NO_PARAM_MODES` — set {0x03, 0x04, 0x07, 0x0A} (modes that take no PID)
+- `decode_mode01(pid, data)` — returns decoded string from raw A/B/C/D bytes (~50 PIDs covered)
+- `decode_mode01_supported(raw, base_pid)` — decodes bitmask into list of supported PID numbers
+- `decode_mode09_supported(raw)` — decodes Mode 09 PID 00 bitmask into supported param list
+- `decode_vin(vin)` — returns dict with vin, year, manufacturer (uses WMI lookup + year map)
+- `get_vin(ser)` — sends 'v\n' shortcut, returns VIN string
+- `get_mode09_ascii(ser, param)` — returns ASCII string for Mode 09 params
+
+### Arduino firmware notes
+- Sends "DEVICE:Seeed Studio CAN Bus Shield V2" on startup after CAN init
+- VIN shortcut: send "v\n" over serial
+- All other commands: "MMPP\n" (mode + param in hex)
+- Modes 03, 04, 07, 0A: send "MM00\n" (param ignored)
+
+### Possible next steps
+- Add a disconnect button that closes self.ser and unchecks connected_checkbox
+- Add live polling / auto-refresh for a set of PIDs on a timer
+- Style improvements to the Qt UI
+- Push to GitHub as a portfolio project

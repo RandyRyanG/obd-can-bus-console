@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>977</width>
+    <height>822</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Courier</family>
+    <pointsize>15</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+}
+
+QFrame#console_settings{
+	color: #47fa20;
+}
+
+QTextBrowser {
+	color: #47fa20;
+	background: black;
+	padding: 4px 10px;
+}
+QListView {
+	color: #47fa20;
+	background: black;
+}
+QLineEdit {
+	color: #47fa20;
+	background: black;
+	
+}</string>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::DockOption::AllowTabbedDocks|QMainWindow::DockOption::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,4">
+    <property name="spacing">
+     <number>14</number>
+    </property>
+    <property name="leftMargin">
+     <number>20</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="rightMargin">
+     <number>20</number>
+    </property>
+    <property name="bottomMargin">
+     <number>20</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="console_settings">
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="4" column="0">
+        <widget class="QTextBrowser" name="vehicle_data_display">
+         <property name="font">
+          <font>
+           <family>Courier</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" rowspan="5">
+        <widget class="QListView" name="pid_list">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>600</width>
+           <height>172</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Courier</family>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="get_vehicle_data">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Get Vehicle/Ecu Data</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QComboBox" name="sel_service_mode">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>301</width>
+           <height>26</height>
+          </size>
+         </property>
+         <property name="placeholderText">
+          <string>Select Service Mode</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>01 Show Current Data</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>02 Show freeze frame data</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>03 Show stored Diagnostic Trouble Codes</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>04 Clear Diagnostic Trouble Codes and stored values</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>05 Test results, oxygen sensor monitoring (non CAN only)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>06 Test results, other component/system monitoring.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>07 Show pending Diagnostic Trouble Codes (detected during current or last driving cycle)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>08 Control operation of on-board component/system</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>09 Request vehicle information</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>0A Permanent Diagnostic Trouble Codes (DTCs) (Cleared DTCs)</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+      <zorder>pid_list</zorder>
+      <zorder>sel_service_mode</zorder>
+      <zorder>vehicle_data_display</zorder>
+      <zorder>get_vehicle_data</zorder>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,1,0,0">
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="connected_checkbox">
+         <property name="text">
+          <string>Connected to:</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="connect_device_button">
+         <property name="text">
+          <string>Connect/ReConnect USB Device</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="send_button">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Send PID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="device_name">
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="4">
+        <widget class="QLineEdit" name="user_pid_text">
+         <property name="font">
+          <font>
+           <family>Courier</family>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="5">
+        <widget class="QTextBrowser" name="response_text">
+         <property name="font">
+          <font>
+           <family>Courier</family>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QPushButton" name="clear_results_button">
+         <property name="text">
+          <string>Clear Reponse</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="info">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/icon/OBD_Icons-01.svg</normaloff>
+     <activeoff>:/icon/OBD_Icons-02.svg</activeoff>:/icon/OBD_Icons-01.svg</iconset>
+   </property>
+   <property name="text">
+    <string>info</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actiondiag">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/icon/OBD_Icons-04.svg</normaloff>
+     <activeoff>:/icon/OBD_Icons-05.svg</activeoff>:/icon/OBD_Icons-04.svg</iconset>
+   </property>
+   <property name="text">
+    <string>diag</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actioncodes">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/icon/OBD_Icons-07.svg</normaloff>
+     <activeoff>:/icon/OBD_Icons-08.svg</activeoff>:/icon/OBD_Icons-07.svg</iconset>
+   </property>
+   <property name="text">
+    <string>codes</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionsettings">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/icon/OBD_Icons-10.svg</normaloff>
+     <activeoff>:/icon/OBD_Icons-11.svg</activeoff>:/icon/OBD_Icons-10.svg</iconset>
+   </property>
+   <property name="text">
+    <string>settings</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
