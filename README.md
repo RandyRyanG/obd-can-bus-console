@@ -23,7 +23,7 @@ A Python desktop application for communicating with a vehicle's OBD-II port usin
 
 | Component | Details |
 |-----------|---------|
-| Arduino (Uno or Nano) | Any 5V Arduino compatible board |
+| Arduino (Uno) | Any 5V Arduino compatible board |
 | Seeed Studio CAN Bus Shield V2 | Uses MCP2515 CAN controller |
 | OBD-II cable or adapter | Standard OBD-II to DB9 or bare wire |
 | USB cable | To connect Arduino to PC |
