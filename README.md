@@ -60,19 +60,36 @@ CanBusShieldV2/
 
 ---
 
+## Configuration
+
+Before running, open `obd_query.py` and update the port settings at the top of the file to match your system:
+
+```python
+COM_PORT  = 'COM5'     # Windows: 'COM3', 'COM4', etc. — check Device Manager
+                       # Mac/Linux: '/dev/ttyUSB0' or '/dev/ttyACM0'
+BAUD_RATE = 115200
+```
+
+To find your port on **Windows**: open Device Manager and look under **Ports (COM & LPT)** after plugging in the Arduino.
+
+To find your port on **Mac/Linux**: run `ls /dev/tty*` in a terminal before and after plugging in — the new entry is your port.
+
+---
+
 ## How to Run
 
 1. Flash `OBDII_PIDs_updated.ino` to your Arduino using the Arduino IDE
-2. Plug the CAN Bus Shield into your vehicle's OBD-II port
-3. Connect the Arduino to your PC via USB
-4. Run the app:
+2. Update `COM_PORT` in `obd_query.py` to match your system (see Configuration above)
+3. Plug the CAN Bus Shield into your vehicle's OBD-II port
+4. Connect the Arduino to your PC via USB
+5. Run the app:
 
 ```
 python obd_console.py
 ```
 
-5. Click **Connect/ReConnect USB Device** to open the serial connection
-6. Click **Get Vehicle Data** to fetch VIN and build the supported PID list
+6. Click **Connect/ReConnect USB Device** to open the serial connection
+7. Click **Get Vehicle Data** to fetch VIN and build the supported PID list
 7. Select a service mode from the dropdown, choose a PID, and click **Send PID**
 
 ---
